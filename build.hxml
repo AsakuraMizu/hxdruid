@@ -1,0 +1,5 @@
+-cp src
+-lua main.lua
+-lib hxdefold
+--macro include('', true, null, ['src'])
+--no-output

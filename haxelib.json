@@ -1,0 +1,14 @@
+{
+    "name": "hxdruid",
+    "url": "https://github.com/phi-x/hxdruid",
+    "description": "Druid Defold component UI library in Haxe",
+    "license": "MIT",
+    "version": "0.0.1",
+    "classPath": "src",
+    "releasenote": "Initial release",
+    "contributors": ["water_lift"],
+    "tags": ["game", "lua", "defold", "druid"],
+    "dependencies": {
+        "hxdefold": ""
+    }
+}
