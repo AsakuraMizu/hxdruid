@@ -20,7 +20,7 @@ class Druid<T:{}> {
 
     public var deleted(default, null):Bool = false;
     public var url(default, null):Url;
-    
+
     private var is_input_processing:Bool = false;
     private final late_remove:Array<Component<T>> = [];
 
@@ -145,7 +145,7 @@ class Druid<T:{}> {
             :
             b.increased_input_priority ? 1 : 0
         );
-        
+
         for (i in components) {
             if (!is_input_consumed)
                 is_input_consumed = i.on_input(action_id, action);
@@ -171,7 +171,7 @@ class Druid<T:{}> {
 
         while (late_remove.length > 0)
             remove(late_remove.pop());
-        
+
         return is_input_consumed;
     }
 

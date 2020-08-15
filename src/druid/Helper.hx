@@ -61,7 +61,7 @@ class Helper {
         var icon_width = get_icon_width(icon_node);
         var text_width = get_text_width(text_node);
         var width = text_width + icon_width;
-        
+
         if (text_node != null) {
             var pos = Gui.get_position(text_node);
             pos.x = width / 2 - text_width + margin / 2;

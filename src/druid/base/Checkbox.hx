@@ -9,6 +9,6 @@ class Checkbox<T:{}> extends Component<T> {
     public function new(node:NodeOrString, callback:Function, click_node:NodeOrString) {
         this.node = get_node(node);
         var click_node = get_node(click_node);
-        
+
     }
 }

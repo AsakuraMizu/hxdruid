@@ -32,7 +32,7 @@ class Manager {
         }
         return instances;
     }
-    
+
     /**
         Create Druid instance
 

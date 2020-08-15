@@ -21,6 +21,6 @@ class Button<T:{}, PT:{}> extends Component<T> {
         }
 
         this.params = params;
-        
+
     }
 }

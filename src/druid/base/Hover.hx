@@ -21,7 +21,6 @@ class Hover<T:{}> extends Component<T> {
     **/
     public var is_enabled(default, set):Bool = true;
 
-
     /**
         On hover callback (Touch pressed)
     **/
@@ -47,7 +46,7 @@ class Hover<T:{}> extends Component<T> {
         on_hover = new Event(on_hover_callback);
         on_mouse_hover = new Event();
     }
-    
+
     /**
         Set hover state
 
@@ -59,7 +58,7 @@ class Hover<T:{}> extends Component<T> {
             on_hover.trigger([context, state]);
         }
     }
-    
+
     /**
         Set hover state
 
