@@ -46,7 +46,7 @@ class Hover<T:{}> extends Component<T> {
         on_hover = new Event(on_hover_callback);
         on_mouse_hover = new Event();
     }
-
+    
     /**
         Set hover state
 
@@ -109,8 +109,8 @@ class Hover<T:{}> extends Component<T> {
 
         @param zone Gui node
     **/
-    public function set_click_zone(zone:NodeOrString):GuiNode
-        return get_node(zone);
+    public function set_click_zone(zone:NodeOrString):Void
+        click_zone = get_node(zone);
 
     public function set_is_enabled(state:Bool):Bool {
         if (!state) {
