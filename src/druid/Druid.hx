@@ -46,6 +46,19 @@ class Druid<T:{}> {
     }
 
     /**
+        Set druid style
+
+        Invoke `set_style` on every component.
+
+        @param druid_style druid style
+    **/
+    public function set_style(?style: DruidStyle):Void {
+        this.style = style;
+        for (i in all_components)
+            i.set_style(style);
+    }
+
+    /**
         Call on final function on gui_script. It will call on_remove
         on all druid components
     **/

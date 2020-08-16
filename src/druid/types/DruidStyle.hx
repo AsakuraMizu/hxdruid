@@ -1,3 +1,5 @@
 package druid.types;
 
-typedef DruidStyle = Map<String, Component.Style>;
+import druid.types.ComponentStyle;
+
+typedef DruidStyle = Map<String, ComponentStyle>;

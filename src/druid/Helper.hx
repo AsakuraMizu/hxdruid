@@ -176,6 +176,14 @@ class Helper {
             -size.y * (0.5 + pivot_offset.y)
         );
     }
+
+    /**
+        map[key] = map[key] or value
+    **/
+    public static function null_default<KT, VT>(map:Map<KT, VT>, key:KT, value:VT):Void {
+        if (map[key] == null)
+            map[key] = value;
+    }
 }
 
 /**

@@ -54,7 +54,7 @@ class Component<T:{}> {
     /**
         Druid style
     **/
-    private var style:Style;
+    private var style:ComponentStyle;
 
     /**
         Initialize a component
@@ -70,7 +70,7 @@ class Component<T:{}> {
     }
 
     /**
-        Set current component style table
+        Set current component style
 
         Invoke `on_style_change` on component, if exist. Component should handle
         their style changing and store all style params
@@ -137,7 +137,7 @@ class Component<T:{}> {
     /**
         Call on component creation and on component.set_style() function
     **/
-    public function on_style_change(style:Style):Void {}
+    public function on_style_change(style:ComponentStyle):Void {}
 
     /**
         Call only if exist interest: const.ON_MESSAGE
@@ -175,6 +175,10 @@ class Component<T:{}> {
         Call on component remove or on druid.final
     **/
     public function on_remove():Void {}
-}
 
-interface Style {}
+    private function invoke_style(name: String, args:Array<Dynamic>):Void {
+        args = ([this]:Array<Dynamic>).concat(args);
+        if (Reflect.isFunction(style[name]))
+            Reflect.callMethod(null, style[name], args);
+    }
+}
