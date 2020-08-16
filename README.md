@@ -57,5 +57,5 @@ Issues and PRs are welcomes.
 
 ## Todo List
 
-+ [x] Basic framework
-+ [ ] Builtin components (1/17)
++ [x] Base framework
++ [ ] Basic components (7/17)
