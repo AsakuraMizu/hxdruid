@@ -47,7 +47,7 @@ class Checkbox<T:{}> extends Component<T> {
         if (style == null)
             style = [];
 
-        Helper.null_default(style, "on_change_state", (_, node, state) -> { Gui.set_enabled(node, state); });
+        Helper.null_default(style, "on_change_state", (_, node, state) -> {});
     }
 
     /**
