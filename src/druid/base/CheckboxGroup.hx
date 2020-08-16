@@ -9,7 +9,7 @@ import druid.types.NodeOrString;
 class CheckboxGroup<T:{}> extends Component<T> {
     private var checkboxes:Array<Checkbox<T>> = [];
 
-    public var on_checkbox_click(default, null):Event;
+    public var on_checkbox_click(default, null):Event<(T, CheckboxGroup<T>, Int) -> Void>;
 
     /**
         Component constructor
@@ -17,7 +17,9 @@ class CheckboxGroup<T:{}> extends Component<T> {
         @param nodes Array of gui nodes and trigger nodes
         @param callback Checkbox group callback
     **/
-    public function new(nodes:Array<{node:NodeOrString, ?click_node:NodeOrString}>, ?callback:Function) {
+    public function new(
+            nodes:Array<{node:NodeOrString, ?click_node:NodeOrString}>, ?callback:(T, CheckboxGroup<T>, Int) -> Void
+        ) {
         name = "CheckboxGroup";
 
         on_checkbox_click = new Event(callback);

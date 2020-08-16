@@ -3,15 +3,15 @@ package druid;
 import haxe.Constraints.Function;
 
 /**
-    Lua event small library
+    Druid event
 **/
-class Event {
+class Event<T:Function> {
     /**
         Event constructur
 
         @param initial_callback subscribe the callback on new event, if callback exist
     **/
-    public function new(?initial_callback:Function) {
+    public function new(?initial_callback:T) {
         clear();
         if (initial_callback != null)
             subscribe(initial_callback);
@@ -22,7 +22,7 @@ class Event {
 
         @param callback callback itself
     **/
-    public function subscribe(callback:Function):Int {
+    public function subscribe(callback:T):Int {
         return callbacks.push(callback);
     }
 
@@ -31,7 +31,7 @@ class Event {
 
         @param callback callback itself
     **/
-    public function unsubscribe(callback:Function):Bool {
+    public function unsubscribe(callback:T):Bool {
         return callbacks.remove(callback);
     }
 
@@ -62,5 +62,5 @@ class Event {
         }
     }
 
-    private var callbacks:Array<Function>;
+    private var callbacks:Array<T>;
 }

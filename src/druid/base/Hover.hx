@@ -24,12 +24,12 @@ class Hover<T:{}> extends Component<T> {
     /**
         On hover callback (Touch pressed)
     **/
-    public var on_hover(default, null):Event;
+    public var on_hover(default, null):Event<(T, Bool) -> Void>;
 
     /**
         On mouse hover callback (Touch over without action_id)
     **/
-    public var on_mouse_hover(default, null):Event;
+    public var on_mouse_hover(default, null):Event<(T, Bool) -> Void>;
 
     /**
         Component constructor
@@ -37,7 +37,7 @@ class Hover<T:{}> extends Component<T> {
         @param node Gui node
         @param on_hover_callback Hover callback
     **/
-    public function new(node: NodeOrString, ?on_hover_callback:Function) {
+    public function new(node: NodeOrString, ?on_hover_callback:(T, Bool) -> Void) {
         name = "Hover";
         interest = [Const.ON_INPUT];
 
@@ -67,7 +67,7 @@ class Hover<T:{}> extends Component<T> {
     public function set_mouse_hover(state:Bool):Void {
         if (is_mouse_hovered != state) {
             is_mouse_hovered = state;
-            on_hover.trigger([context, state]);
+            on_mouse_hover.trigger([context, state]);
         }
     }
 

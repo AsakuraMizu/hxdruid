@@ -18,12 +18,12 @@ class Blocker<T:{}> extends Component<T> {
     /**
         On release button callback
     **/
-    public var on_click(default, null):Event;
+    public var on_click(default, null):Event<T -> Void>;
 
     /**
         On enable/disable callback
     **/
-    public var on_enable_change(default, null):Event;
+    public var on_enable_change(default, null):Event<(T, Bool) -> Void>;
 
     public function new(node:GuiNode) {
         name = "Blocker";

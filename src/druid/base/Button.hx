@@ -12,7 +12,7 @@ import druid.types.NodeOrString;
 /**
     Component to handle basic GUI button
 **/
-class Button<T:{}> extends Component<T> {
+class Button<T:{}, PT> extends Component<T> {
     private var node:GuiNode;
     private var click_zone:GuiNode;
     private var hover:Hover<T>;
@@ -50,39 +50,39 @@ class Button<T:{}> extends Component<T> {
     /**
         Params to click callbacks
     **/
-    public var params:Dynamic;
+    public var params:PT;
 
     public var click_in_row(default, null):Int = 0;
 
     /**
         On release button callback (self, params, button_instance)
     **/
-    public var on_click(default, null):Event;
+    public var on_click(default, null):Event<(T, PT, Button<T, PT>) -> Void>;
 
     /**
         On repeated action button callback (self, params, button_instance, click_amount)
     **/
-    public var on_repeated_click(default, null):Event;
+    public var on_repeated_click(default, null):Event<(T, PT, Button<T, PT>, Int) -> Void>;
 
     /**
         On long tap button callback (self, params, button_instance, time)
     **/
-    public var on_long_click(default, null):Event;
+    public var on_long_click(default, null):Event<(T, PT, Button<T, PT>, Float) -> Void>;
 
     /**
         On double tap button callback (self, params, button_instance, click_amount)
     **/
-    public var on_double_click(default, null):Event;
+    public var on_double_click(default, null):Event<(T, PT, Button<T, PT>, Int) -> Void>;
 
     /**
         On button hold before long_click callback (self, params, button_instance, time)
     **/
-    public var on_hold_callback(default, null):Event;
+    public var on_hold_callback(default, null):Event<(T, PT, Button<T, PT>, Float) -> Void>;
 
     /**
         On click outside of button (self, params, button_instance)
     **/
-    public var on_click_outside(default, null):Event;
+    public var on_click_outside(default, null):Event<(T, PT, Button<T, PT>) -> Void>;
 
     /**
         Component constructor
@@ -92,7 +92,9 @@ class Button<T:{}> extends Component<T> {
         @param params Button callback params
         @param anim_node Button anim node
     **/
-    public function new(node:NodeOrString, ?callback:Function, ?params:Dynamic, ?anim_node:NodeOrString) {
+    public function new(
+            node:NodeOrString, ?callback:(T, PT, Button<T, PT>) -> Void, ?params:PT, ?anim_node:NodeOrString
+        ) {
         name = "Button";
         interest = [Const.ON_INPUT];
 
@@ -218,10 +220,10 @@ class Button<T:{}> extends Component<T> {
         return false;
     }
 
-    private function on_button_hover(hover_state:Bool):Void
+    private function on_button_hover(_:T, hover_state:Bool):Void
         invoke_style("on_hover", [this, anim_node, hover_state]);
 
-    private function on_button_mouse_hover(hover_state:Bool):Void
+    private function on_button_mouse_hover(_:T, hover_state:Bool):Void
         invoke_style("on_mouse_hover", [this, anim_node, hover_state]);
 
     private function on_button_click():Void {

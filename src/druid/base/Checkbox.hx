@@ -12,7 +12,7 @@ import druid.types.NodeOrString;
 class Checkbox<T:{}> extends Component<T> {
     private var node:GuiNode;
     private var click_node:GuiNode;
-    private var button:Button<T>;
+    private var button:Button<T, Void>;
 
     /**
         Checkbox state
@@ -22,7 +22,7 @@ class Checkbox<T:{}> extends Component<T> {
     /**
         On change state callback
     **/
-    public var on_change_state(default, null):Event;
+    public var on_change_state(default, null):Event<(T, Bool) -> Void>;
 
     /**
         Component constructor
@@ -31,7 +31,7 @@ class Checkbox<T:{}> extends Component<T> {
         @param callback Checkbox callback
         @param click_node Trigger node, by default equals to node
     **/
-    public function new(node:NodeOrString, ?callback:Function, ?click_node:NodeOrString) {
+    public function new(node:NodeOrString, ?callback:(T, Bool) -> Void, ?click_node:NodeOrString) {
         name = "Checkbox";
 
         this.node = get_node(node);
@@ -64,7 +64,7 @@ class Checkbox<T:{}> extends Component<T> {
         }
     }
 
-    private function on_click(context:T, params:Dynamic, button:Button<T>) {
+    private function on_click(context:T, params:Void, button:Button<T, Void>) {
         set_state(!state);
     }
 }

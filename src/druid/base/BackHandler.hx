@@ -2,21 +2,20 @@ package druid.base;
 
 import defold.types.Hash;
 import defold.support.ScriptOnInputAction;
-import haxe.Constraints.Function;
 
 /**
     Component to handle back key (android, backspace)
 **/
-class BackHandler<T:{}> extends Component<T> {
+class BackHandler<T:{}, PT> extends Component<T> {
     /**
         On back handler callback
     **/
-    public var on_back(default, null):Event;
+    public var on_back(default, null):Event<(T, PT) -> Void>;
 
     /**
         Params to click callbacks
     **/
-    public var params:Dynamic;
+    public var params:PT;
 
     /**
         Component constructor
@@ -24,7 +23,7 @@ class BackHandler<T:{}> extends Component<T> {
         @param callback Callback On back button
         @param params Callback argument
     **/
-    public function new(callback:Function, ?params:Dynamic) {
+    public function new(callback:(T, PT) -> Void, ?params:PT) {
         name = "BackHandler";
         interest = [Const.ON_INPUT];
 
