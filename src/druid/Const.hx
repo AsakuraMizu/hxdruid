@@ -22,9 +22,6 @@ class Const {
     public static final ACTION_MULTITOUCH = hash("multitouch");
     public static final ACTION_SCROLL_DOWN = hash("scroll_down");
 
-    public static final RELEASED = "released";
-    public static final PRESSED = "pressed";
-
     /**
         Component Interests
     **/
