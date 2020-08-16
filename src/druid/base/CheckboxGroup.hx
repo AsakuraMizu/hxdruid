@@ -1,6 +1,5 @@
 package druid.base;
 
-import haxe.Constraints.Function;
 import druid.types.NodeOrString;
 
 /**

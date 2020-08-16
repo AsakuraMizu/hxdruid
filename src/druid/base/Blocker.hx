@@ -1,8 +1,8 @@
 package druid.base;
 
-import defold.types.Hash;
-import defold.support.ScriptOnInputAction;
 import defold.Gui;
+import defold.support.ScriptOnInputAction;
+import defold.types.Hash;
 
 /**
     Component to block input on specify zone by node

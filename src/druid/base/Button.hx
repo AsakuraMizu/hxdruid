@@ -1,6 +1,5 @@
 package druid.base;
 
-import haxe.Constraints.Function;
 import lua.lib.luasocket.Socket;
 import defold.Gui;
 import defold.support.ScriptOnInputAction;

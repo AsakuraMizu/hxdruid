@@ -1,7 +1,7 @@
 package druid.base;
 
-import defold.types.Hash;
 import defold.support.ScriptOnInputAction;
+import defold.types.Hash;
 
 /**
     Component to handle back key (android, backspace)

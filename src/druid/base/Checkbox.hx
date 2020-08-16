@@ -1,9 +1,7 @@
 package druid.base;
 
-import druid.types.ComponentStyle;
-import haxe.Constraints.Function;
 import defold.Gui;
-import druid.types.DruidStyle;
+import druid.types.ComponentStyle;
 import druid.types.NodeOrString;
 
 /**
@@ -48,6 +46,8 @@ class Checkbox<T:{}> extends Component<T> {
             style = [];
 
         Helper.null_default(style, "on_change_state", (_, node, state) -> {});
+
+        this.style = style;
     }
 
     /**

@@ -75,7 +75,7 @@ class Helper {
         }
     }
 
-    public static function step(current:Float, target:Float, step:Float):Float {
+    public inline static function step(current:Float, target:Float, step:Float):Float {
         if (current < target) {
             return Math.min(current+ step, target);
         } else {
@@ -83,7 +83,7 @@ class Helper {
         }
     }
 
-    public static function clamp(a:Float, min:Float, max:Float):Float {
+    public inline static function clamp(a:Float, min:Float, max:Float):Float {
         if (min > max) {
             var tmp = min;
             min = max;
@@ -98,22 +98,22 @@ class Helper {
             return max;
     }
 
-    public static function distance(x1:Float, y1:Float, x2:Float, y2: Float):Float {
+    public inline static function distance(x1:Float, y1:Float, x2:Float, y2: Float):Float {
         return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
     }
 
-    public static function sign(val:Float):Int {
+    public inline static function sign(val:Float):Int {
         if (val == 0)
             return 0;
         return val < 0 ? -1 : 1;
     }
 
-    public static function round(num:Float, ?numDecimalPlaces:Int = 0):Float {
+    public inline static function round(num:Float, ?numDecimalPlaces:Int = 0):Float {
         var mult = Math.pow(10, numDecimalPlaces);
         return Math.floor(num * mult + 0.5) / mult;
     }
 
-    public static function lerp(a:Float, b:Float, t:Float):Float {
+    public inline static function lerp(a:Float, b:Float, t:Float):Float {
         return a + (b - a) * t;
     }
 
@@ -137,19 +137,9 @@ class Helper {
     }
 
     /**
-        Get node offset for given gui pivot
-
-        @param pivot node pivot
-        @return Vector offset with [-1..1] values
-    **/
-    public static function get_pivot_offset(pivot:GuiPivot):Vector3 {
-        return Const.PIVOTS[pivot];
-    }
-
-    /**
         Check if device is mobile (Android or iOS)
     **/
-    public static function is_mobile():Bool {
+    public inline static function is_mobile():Bool {
         var system_name = defold.Sys.get_sys_info().system_name;
         return system_name == Const.OS.IOS || system_name == Const.OS.ANDROID;
     }
@@ -157,7 +147,7 @@ class Helper {
     /**
         Check if device is HTML5
     **/
-    public static function is_web():Bool {
+    public inline static function is_web():Bool {
         var system_name = defold.Sys.get_sys_info().system_name;
         return system_name == Const.OS.BROWSER;
     }
@@ -167,7 +157,7 @@ class Helper {
     **/
     public static function get_border(node:GuiNode):Vector4 {
         var pivot = Gui.get_pivot(node);
-        var pivot_offset = get_pivot_offset(pivot);
+        var pivot_offset = Const.PIVOTS[pivot];
         var size = Vmath.mul_per_elem(Gui.get_size(node), Gui.get_scale(node));
         return Vmath.vector4(
             -size.x * (0.5 + pivot_offset.x),
@@ -180,7 +170,7 @@ class Helper {
     /**
         map[key] = map[key] or value
     **/
-    public static function null_default<KT, VT>(map:Map<KT, VT>, key:KT, value:VT):Void {
+    public inline static function null_default<KT, VT>(map:Map<KT, VT>, key:KT, value:VT):Void {
         if (map[key] == null)
             map[key] = value;
     }
@@ -197,7 +187,7 @@ class Formats {
         @param count Count of numerals
         @return String with need count of zero
     **/
-    public static function add_prefix_zeros(num:Int, count:Int):String {
+    public inline static function add_prefix_zeros(num:Int, count:Int):String {
         var res = Std.string(num);
         for (i in res.length...count)
             res = "0" + res;
@@ -210,7 +200,7 @@ class Formats {
         @param sec Seconds
         @return minutes:seconds
     **/
-    public static function second_string_min(sec:Int):String {
+    public inline static function second_string_min(sec:Int):String {
         var mins = Math.floor(sec / 60);
         var seconds = Math.floor(sec - mins * 60);
         return add_prefix_zeros(mins, 2) + ":" + add_prefix_zeros(seconds, 2);
