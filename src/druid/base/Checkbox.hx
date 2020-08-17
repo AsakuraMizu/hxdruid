@@ -10,7 +10,6 @@ import druid.types.NodeOrString;
 class Checkbox<T:{}> extends Component<T> {
     private var node:GuiNode;
     private var click_node:GuiNode;
-    private var button:Button<T>;
 
     /**
         Checkbox state
@@ -31,17 +30,18 @@ class Checkbox<T:{}> extends Component<T> {
     **/
     public function new(node:NodeOrString, ?callback:(T, Bool) -> Void, ?click_node:NodeOrString) {
         name = "Checkbox";
+        on_style_change();
 
         this.node = get_node(node);
         this.click_node = get_node(click_node);
 
-        button = new Button(this.click_node != null ? this.click_node : this.node, on_click);
+        add_child(new Button(this.click_node != null ? this.click_node : this.node, on_click));
 
         on_change_state = new Event(callback);
         set_state(false, true);
     }
 
-    override function on_style_change(style:ComponentStyle) {
+    override function on_style_change(?style:ComponentStyle) {
         if (style == null)
             style = [];
 

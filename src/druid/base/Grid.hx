@@ -90,8 +90,8 @@ class Grid<T:{}> extends Component<T> {
     }
 
     private function get_pos(index:Int):Vector3 {
-        var row = Math.ceil(index / in_row) - 1;
-        var col = (index - row * in_row) - 1;
+        var row = Math.floor(index / in_row);
+        var col = index - row * in_row;
         return Vmath.vector3(
             col * (node_size.x + offset.x) - border_offset.x,
             -row * (node_size.y + offset.y) - border_offset.y,
@@ -134,7 +134,7 @@ class Grid<T:{}> extends Component<T> {
     **/
     public function add(item:NodeOrString, ?index:Int):Void {
         if (index == null)
-            index = grid_nodes.length + 1;
+            index = grid_nodes.length;
 
         var node = get_node(item);
         grid_nodes.insert(index, node);

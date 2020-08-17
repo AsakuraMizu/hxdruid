@@ -74,6 +74,7 @@ class Drag<T:{}> extends Component<T> {
     public function new(node:NodeOrString, ?callback:(T, Float, Float) -> Void) {
         name = "Drag";
         interest = [Const.ON_INPUT_HIGH];
+        on_style_change();
 
         this.node = get_node(node);
 
@@ -166,7 +167,7 @@ class Drag<T:{}> extends Component<T> {
             end_touch();
     }
 
-    override function on_style_change(style:ComponentStyle) {
+    override function on_style_change(?style:ComponentStyle) {
         if (style == null)
             style = [];
 

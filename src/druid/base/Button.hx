@@ -91,6 +91,7 @@ class Button<T:{}> extends Component<T> {
         ) {
         name = "Button";
         interest = [Const.ON_INPUT];
+        on_style_change();
 
         this.node = get_node(node);
         if (anim_node == null) {
@@ -179,7 +180,7 @@ class Button<T:{}> extends Component<T> {
         can_action = false;
     }
 
-    override function on_style_change(style:ComponentStyle) {
+    override function on_style_change(?style:ComponentStyle) {
         if (style == null)
             style = [];
 

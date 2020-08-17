@@ -56,6 +56,8 @@ class Component<T:{}> {
     **/
     private var style:ComponentStyle;
 
+    private var lazy_add:Array<Component<T>> = [];
+
     /**
         Initialize a component
 
@@ -67,6 +69,9 @@ class Component<T:{}> {
         this.druid = druid;
         this.context = context;
         set_style(druid_style);
+
+        for (i in lazy_add)
+            this.druid.add(i);
     }
 
     /**
@@ -113,7 +118,13 @@ class Component<T:{}> {
     **/
     public function add_child(component:Component<T>):Component<T> {
         component.parent = this;
-        return druid.add(component);
+
+        if (druid == null)
+            lazy_add.push(component);
+        else
+            druid.add(component);
+
+        return component;
     }
 
     /**
@@ -137,7 +148,7 @@ class Component<T:{}> {
     /**
         Call on component creation and on component.set_style() function
     **/
-    public function on_style_change(style:ComponentStyle):Void {}
+    public function on_style_change(?style:ComponentStyle):Void {}
 
     /**
         Call only if exist interest: const.ON_MESSAGE
