@@ -2,6 +2,7 @@ package druid.base;
 
 import defold.Gui;
 import druid.types.ComponentStyle;
+import druid.types.DruidStyle;
 import druid.types.NodeOrString;
 
 /**
@@ -30,14 +31,17 @@ class Checkbox<T:{}> extends Component<T> {
     **/
     public function new(node:NodeOrString, ?callback:(T, Bool) -> Void, ?click_node:NodeOrString) {
         name = "Checkbox";
-        on_style_change();
 
         this.node = get_node(node);
         this.click_node = get_node(click_node);
 
-        add_child(new Button(this.click_node != null ? this.click_node : this.node, on_click));
-
         on_change_state = new Event(callback);
+    }
+
+    override function init(druid:Druid<T>, context:T, ?druid_style:DruidStyle) {
+        super.init(druid, context, druid_style);
+
+        add_child(new Button(this.click_node != null ? this.click_node : this.node, on_click));
         set_state(false, true);
     }
 

@@ -96,7 +96,7 @@ class Druid<T:{}> {
 
         @param component Component
     **/
-    public function add<CT:Component<T>>(component: CT):CT {
+    public function add(component:Component<T>):Void {
         component.init(this, this.context, this.style);
 
         all_components.push(component);
@@ -111,8 +111,6 @@ class Druid<T:{}> {
 
         if (init_input)
             input_init();
-
-        return component;
     }
 
     /**

@@ -1,5 +1,6 @@
 package druid.base;
 
+import druid.types.DruidStyle;
 import druid.types.NodeOrString;
 
 /**
@@ -21,15 +22,21 @@ class RadioGroup<T:{}> extends Component<T> {
         ) {
         name = "RadioGroup";
 
-        on_radio_click = new Event(callback);
-
         for (i => v in nodes.keyValueIterator()) {
             var checkbox = new Checkbox(v.node, (context, state) -> {
                 on_checkbox_click(i);
             }, v.click_node);
-            add_child(checkbox);
             checkboxes.push(checkbox);
         }
+
+        on_radio_click = new Event(callback);
+    }
+
+    override function init(druid:Druid<T>, context:T, ?druid_style:DruidStyle) {
+        super.init(druid, context, druid_style);
+
+        for (i in checkboxes)
+            add_child(i);
     }
 
     private function on_checkbox_click(index:Int):Void {

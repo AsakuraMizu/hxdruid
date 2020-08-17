@@ -14,8 +14,8 @@ class DruidScript<T:{}> extends GuiScript<T> {
 
         @param component Component
     **/
-    private function add<CT:Component<T>>(component: CT):CT
-        return druid.add(component);
+    private function add(component:Component<T>):Void
+        druid.add(component);
 
     override function init(self:T) {
         super.init(self);

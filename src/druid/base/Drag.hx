@@ -74,7 +74,6 @@ class Drag<T:{}> extends Component<T> {
     public function new(node:NodeOrString, ?callback:(T, Float, Float) -> Void) {
         name = "Drag";
         interest = [Const.ON_INPUT_HIGH];
-        on_style_change();
 
         this.node = get_node(node);
 

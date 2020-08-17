@@ -6,6 +6,7 @@ import defold.support.ScriptOnInputAction;
 import defold.types.Hash;
 import defold.types.Vector3;
 import druid.types.ComponentStyle;
+import druid.types.DruidStyle;
 import druid.types.NodeOrString;
 
 /**
@@ -91,7 +92,6 @@ class Button<T:{}> extends Component<T> {
         ) {
         name = "Button";
         interest = [Const.ON_INPUT];
-        on_style_change();
 
         this.node = get_node(node);
         if (anim_node == null) {
@@ -103,15 +103,20 @@ class Button<T:{}> extends Component<T> {
         start_scale = Gui.get_scale(this.anim_node);
         start_pos = Gui.get_position(this.anim_node);
 
-        hover = new Hover(node, on_button_hover);
-        hover.on_mouse_hover.subscribe(on_button_mouse_hover);
-
         on_click = new Event(callback);
         on_repeated_click = new Event();
         on_long_click = new Event();
         on_double_click = new Event();
         on_hold_callback = new Event();
         on_click_outside = new Event();
+    }
+
+    override function init(druid:Druid<T>, context:T, ?druid_style:DruidStyle) {
+        super.init(druid, context, druid_style);
+
+        hover = new Hover(node, on_button_hover);
+        hover.on_mouse_hover.subscribe(on_button_mouse_hover);
+        add_child(hover);
     }
 
     override function on_input(action_id:Hash, action:ScriptOnInputAction):Bool {
