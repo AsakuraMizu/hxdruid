@@ -116,7 +116,7 @@ class Component<T:{}> {
 
         @param component Component
     **/
-    public function add_child(component:Component<T>):Component<T> {
+    public function add_child<CT:Component<T>>(component: CT):CT {
         component.parent = this;
 
         if (druid == null)

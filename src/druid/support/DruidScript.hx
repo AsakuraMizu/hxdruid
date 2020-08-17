@@ -1,4 +1,4 @@
-package druid;
+package druid.support;
 
 import defold.types.Hash;
 import defold.types.Message;
@@ -8,6 +8,14 @@ import defold.support.ScriptOnInputAction;
 
 class DruidScript<T:{}> extends GuiScript<T> {
     private var druid:Druid<T>;
+
+    /**
+        Add component
+
+        @param component Component
+    **/
+    private function add<CT:Component<T>>(component: CT):CT
+        return druid.add(component);
 
     override function init(self:T) {
         super.init(self);

@@ -96,7 +96,7 @@ class Druid<T:{}> {
 
         @param component Component
     **/
-    public function add(component: Component<T>):Component<T> {
+    public function add<CT:Component<T>>(component: CT):CT {
         component.init(this, this.context, this.style);
 
         all_components.push(component);

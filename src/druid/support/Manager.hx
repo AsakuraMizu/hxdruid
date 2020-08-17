@@ -1,4 +1,4 @@
-package druid;
+package druid.support;
 
 import defold.Msg;
 import defold.Window;
