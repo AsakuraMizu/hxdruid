@@ -6,6 +6,11 @@ import defold.Vmath;
 import defold.types.*;
 import druid.types.*;
 
+enum abstract SIDE(String) {
+    var X;
+    var Y;
+}
+
 /**
     Druid constants
 **/
@@ -81,11 +86,6 @@ class Const {
         WINDOWS: "Windows",
         BROWSER: "HTML5",
     };
-
-    public static final SIDE = {
-        X: "x",
-        Y: "y",
-    }
 
     public static final SWIPE = {
         UP: "up",
