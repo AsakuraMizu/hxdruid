@@ -10,7 +10,7 @@ import druid.types.NodeOrString;
 class Checkbox<T:{}> extends Component<T> {
     private var node:GuiNode;
     private var click_node:GuiNode;
-    private var button:Button<T, Void>;
+    private var button:Button<T>;
 
     /**
         Checkbox state
@@ -64,7 +64,7 @@ class Checkbox<T:{}> extends Component<T> {
         }
     }
 
-    private function on_click(context:T, params:Void, button:Button<T, Void>) {
+    private function on_click(context:T) {
         set_state(!state);
     }
 }

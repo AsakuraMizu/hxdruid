@@ -11,7 +11,7 @@ import druid.types.NodeOrString;
 /**
     Component to handle basic GUI button
 **/
-class Button<T:{}, PT> extends Component<T> {
+class Button<T:{}> extends Component<T> {
     private var node:GuiNode;
     private var click_zone:GuiNode;
     private var hover:Hover<T>;
@@ -46,42 +46,37 @@ class Button<T:{}, PT> extends Component<T> {
     **/
     public var key_trigger:Hash;
 
-    /**
-        Params to click callbacks
-    **/
-    public var params:PT;
-
     public var click_in_row(default, null):Int = 0;
 
     /**
         On release button callback (self, params, button_instance)
     **/
-    public var on_click(default, null):Event<(T, PT, Button<T, PT>) -> Void>;
+    public var on_click(default, null):Event<T -> Void>;
 
     /**
         On repeated action button callback (self, params, button_instance, click_amount)
     **/
-    public var on_repeated_click(default, null):Event<(T, PT, Button<T, PT>, Int) -> Void>;
+    public var on_repeated_click(default, null):Event<(T, Int) -> Void>;
 
     /**
         On long tap button callback (self, params, button_instance, time)
     **/
-    public var on_long_click(default, null):Event<(T, PT, Button<T, PT>, Float) -> Void>;
+    public var on_long_click(default, null):Event<(T, Float) -> Void>;
 
     /**
         On double tap button callback (self, params, button_instance, click_amount)
     **/
-    public var on_double_click(default, null):Event<(T, PT, Button<T, PT>, Int) -> Void>;
+    public var on_double_click(default, null):Event<(T, Int) -> Void>;
 
     /**
         On button hold before long_click callback (self, params, button_instance, time)
     **/
-    public var on_hold_callback(default, null):Event<(T, PT, Button<T, PT>, Float) -> Void>;
+    public var on_hold_callback(default, null):Event<(T, Float) -> Void>;
 
     /**
         On click outside of button (self, params, button_instance)
     **/
-    public var on_click_outside(default, null):Event<(T, PT, Button<T, PT>) -> Void>;
+    public var on_click_outside(default, null):Event<T -> Void>;
 
     /**
         Component constructor
@@ -92,7 +87,7 @@ class Button<T:{}, PT> extends Component<T> {
         @param anim_node Button anim node
     **/
     public function new(
-            node:NodeOrString, ?callback:(T, PT, Button<T, PT>) -> Void, ?params:PT, ?anim_node:NodeOrString
+            node:NodeOrString, ?callback:T -> Void, ?anim_node:NodeOrString
         ) {
         name = "Button";
         interest = [Const.ON_INPUT];
@@ -110,7 +105,6 @@ class Button<T:{}, PT> extends Component<T> {
         hover = new Hover(node, on_button_hover);
         hover.on_mouse_hover.subscribe(on_button_mouse_hover);
 
-        this.params = params;
         on_click = new Event(callback);
         on_repeated_click = new Event();
         on_long_click = new Event();
@@ -137,7 +131,7 @@ class Button<T:{}, PT> extends Component<T> {
         if (!is_pick) {
             can_action = false;
             if (action.released)
-                on_click_outside.trigger([context, params, this]);
+                on_click_outside.trigger([context]);
             return false;
         }
 
@@ -156,7 +150,7 @@ class Button<T:{}, PT> extends Component<T> {
         // While hold button, repeat rate pick from input.repeat_interval
         if (action.repeated) {
             if (is_enabled && can_action && on_repeated_click.is_exist()) {
-                on_repeated_click.trigger([context, params, this]);
+                on_repeated_click.trigger([context]);
                 return true;
             }
         }
@@ -229,7 +223,7 @@ class Button<T:{}, PT> extends Component<T> {
         invoke_style("on_click", [this, anim_node]);
 
         click_in_row = 1;
-        on_click.trigger([context, params, this]);
+        on_click.trigger([context]);
     }
 
     private function on_button_repeated_click():Void {
@@ -241,7 +235,7 @@ class Button<T:{}, PT> extends Component<T> {
         invoke_style("on_click", [this, anim_node]);
 
         click_in_row += 1;
-        on_repeated_click.trigger([context, params, this, click_in_row]);
+        on_repeated_click.trigger([context, click_in_row]);
     }
 
     private function on_button_long_click():Void {
@@ -249,18 +243,18 @@ class Button<T:{}, PT> extends Component<T> {
 
         click_in_row = 1;
         var time = Socket.gettime() - last_pressed_time;
-        on_long_click.trigger([context, params, this, time]);
+        on_long_click.trigger([context, time]);
     }
 
     private function on_button_double_click():Void {
         invoke_style("on_click", [this, anim_node]);
 
         click_in_row += 1;
-        on_double_click.trigger([context, params, this, click_in_row]);
+        on_double_click.trigger([context, click_in_row]);
     }
 
     private function on_button_hold(press_time:Float):Void {
-        on_hold_callback.trigger([context, params, this, press_time]);
+        on_hold_callback.trigger([context, press_time]);
     }
 
     private function on_button_release():Bool {

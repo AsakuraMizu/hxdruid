@@ -6,16 +6,11 @@ import defold.types.Hash;
 /**
     Component to handle back key (android, backspace)
 **/
-class BackHandler<T:{}, PT> extends Component<T> {
+class BackHandler<T:{}> extends Component<T> {
     /**
         On back handler callback
     **/
-    public var on_back(default, null):Event<(T, PT) -> Void>;
-
-    /**
-        Params to click callbacks
-    **/
-    public var params:PT;
+    public var on_back(default, null):Event<T -> Void>;
 
     /**
         Component constructor
@@ -23,11 +18,10 @@ class BackHandler<T:{}, PT> extends Component<T> {
         @param callback Callback On back button
         @param params Callback argument
     **/
-    public function new(callback:(T, PT) -> Void, ?params:PT) {
+    public function new(callback:T -> Void) {
         name = "BackHandler";
         interest = [Const.ON_INPUT];
 
-        this.params = params;
         on_back = new Event(callback);
     }
 
@@ -36,7 +30,7 @@ class BackHandler<T:{}, PT> extends Component<T> {
             return false;
 
         if (action_id == Const.ACTION_BACK || action_id == Const.ACTION_BACKSPACE) {
-            on_back.trigger([context, params]);
+            on_back.trigger([context]);
             return true;
         }
         

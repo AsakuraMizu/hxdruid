@@ -8,7 +8,7 @@ import druid.types.NodeOrString;
 class RadioGroup<T:{}> extends Component<T> {
     private var checkboxes:Array<Checkbox<T>> = [];
 
-    public var on_radio_click(default, null):Event<(T, RadioGroup<T>, Int) -> Void>;
+    public var on_radio_click(default, null):Event<(T, Int) -> Void>;
 
     /**
         Component constructor
@@ -17,7 +17,7 @@ class RadioGroup<T:{}> extends Component<T> {
         @param callback Radio group callback
     **/
     public function new(
-            nodes:Array<{node:NodeOrString, ?click_node:NodeOrString}>, ?callback:(T, RadioGroup<T>, Int) -> Void
+            nodes:Array<{node:NodeOrString, ?click_node:NodeOrString}>, ?callback:(T, Int) -> Void
         ) {
         name = "RadioGroup";
 
@@ -36,7 +36,7 @@ class RadioGroup<T:{}> extends Component<T> {
         for (i => v in checkboxes.keyValueIterator())
             v.set_state(i == index, true);
 
-        on_radio_click.trigger([context, this, index]);
+        on_radio_click.trigger([context, index]);
     }
 
     /**
