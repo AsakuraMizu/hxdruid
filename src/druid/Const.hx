@@ -11,6 +11,13 @@ enum abstract SIDE(String) {
     var Y;
 }
 
+enum abstract SWIPE(String) {
+    var UP;
+    var DOWN;
+    var LEFT;
+    var RIGHT;
+}
+
 /**
     Druid constants
 **/
@@ -61,17 +68,12 @@ class Const {
         PIVOT_NW => Vmath.vector3(-0.5, 0.5, 0),
     ];
 
-    public static final FOCUS_LOST = {msg: new Message<Void>("on_focus_lost")};
-    public static final FOCUS_GAINED = {msg:new Message<Void>("on_focus_gained")};
-    public static final LAYOUT_CHANGE = {msg:new Message<Void>("on_layout_change")};
-    public static final LANGUAGE_CHANGE = {msg:new Message<Void>("on_language_change")};
-
-    public static final SPECIFIC_UI_MESSAGES = [
-        FOCUS_LOST => { interest: ON_FOCUS_LOST, name: "on_focus_lost" },
-        FOCUS_GAINED => { interest: ON_FOCUS_GAINED, name: "on_focus_gained" },
-        LAYOUT_CHANGE => { interest: ON_LAYOUT_CHANGE, name: "on_layout_change" },
-        LANGUAGE_CHANGE => { interest: ON_LANGUAGE_CHANGE, name: "on_language_change" },
-    ];
+    public static final SPECIFIC_UI_MESSAGES = {
+        FOCUS_LOST: new Message<Void>("on_focus_lost"),
+        FOCUS_GAINED: new Message<Void>("on_focus_gained"),
+        LAYOUT_CHANGE: new Message<Void>("on_layout_change"),
+        LANGUAGE_CHANGE: new Message<Void>("on_language_change"),
+    };
 
     public static final UI_INPUT = [
         ON_INPUT_HIGH,
@@ -86,11 +88,4 @@ class Const {
         WINDOWS: "Windows",
         BROWSER: "HTML5",
     };
-
-    public static final SWIPE = {
-        UP: "up",
-        DOWN: "down",
-        LEFT: "left",
-        RIGHT: "right",
-    }
 }

@@ -1,4 +1,4 @@
-package druid.support;
+package druid;
 
 import defold.types.Hash;
 import defold.types.Message;
@@ -39,7 +39,7 @@ class DruidScript<T:{}> extends GuiScript<T> {
         druid_instance.remove(component);
 
     override function init(self:T):Void
-        druid_instance = Manager.create(self);
+        druid_instance = Druid.create(self);
 
     override function final_(self:T):Void
         druid_instance.final_();

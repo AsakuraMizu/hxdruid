@@ -1,5 +1,7 @@
 package druid;
 
+import defold.Msg;
+import defold.Window;
 import defold.support.ScriptOnInputAction;
 import defold.types.*;
 import druid.types.*;
@@ -190,18 +192,17 @@ class Druid<T:{}> {
         Druid on_message function
     **/
     public function on_message<TMessage>(message_id:Message<TMessage>, message:TMessage, sender:Url):Void {
-        var specific_ui_message = Const.SPECIFIC_UI_MESSAGES[cast {msg:message_id}];
-
-        if (specific_ui_message != null) {
-            for (i in components[specific_ui_message.interest]) {
-                var func = Reflect.field(i, specific_ui_message.name);
-                if (Reflect.isFunction(func))
-                    func();
-            }
-        } else {
-            for (i in components[Const.ON_MESSAGE])
-                i.on_message(message_id, message, sender);
-        }
+        var match_msg:Message<Void> = cast message_id;
+        if (match_msg == Const.SPECIFIC_UI_MESSAGES.FOCUS_LOST)
+            on_focus_lost();
+        else if (match_msg == Const.SPECIFIC_UI_MESSAGES.FOCUS_GAINED)
+            on_focus_gained();
+        else if (match_msg == Const.SPECIFIC_UI_MESSAGES.LAYOUT_CHANGE)
+            on_layout_change();
+        else if (match_msg == Const.SPECIFIC_UI_MESSAGES.LANGUAGE_CHANGE)
+            on_language_change();
+        for (i in components[Const.ON_MESSAGE])
+            i.on_message(message_id, message, sender);
     }
 
     /**
@@ -249,4 +250,82 @@ class Druid<T:{}> {
     public function on_language_change():Void
         for (i in components[Const.ON_LANGUAGE_CHANGE])
             i.on_language_change();
+
+    /**
+        Druid default style
+    **/
+    public static var default_style:DruidStyle;
+
+    /**
+        Druid text function
+
+        Druid locale component will call this function to get translated text
+    **/
+    public static var get_text:(String, ?Array<String>) -> String = (id, ?args) -> "[Druid]: locales not inited";
+
+    /**
+        Druid sound function
+
+        Component will call this function to play sound by sound_id
+    **/
+    public static var play_sound:String -> Void = name -> {};
+
+    private static final instances:Array<Druid<Dynamic>> = [];
+
+    private static function get_druid_instances():Array<Druid<Dynamic>> {
+        for (i in instances) {
+            if (i.deleted) instances.remove(i);
+        }
+        return instances;
+    }
+
+    /**
+        Create Druid instance
+
+        @param context Druid context. Usually it is self of script
+        @param style Druid style module
+        @return Druid instance
+    **/
+    public static function create<T:{}>(context:T, ?style:DruidStyle):Druid<T> {
+        var instance = new Druid(context, style);
+        instances.push(instance);
+        return instance;
+    }
+
+    /**
+        Callback on global window event
+
+        Used to trigger on_focus_lost and on_focus_gain
+    **/
+    public static function on_window_callback(event:WindowEvent, data:WindowEventData):Void {
+        var instances = get_druid_instances();
+
+        if (event == WINDOW_EVENT_FOCUS_LOST) {
+            for (i in instances)
+                Msg.post(i.url, Const.SPECIFIC_UI_MESSAGES.FOCUS_LOST);
+        } else if (event == WINDOW_EVENT_FOCUS_GAINED) {
+            for (i in instances)
+                Msg.post(i.url, Const.SPECIFIC_UI_MESSAGES.FOCUS_GAINED);
+        }
+    }
+
+    /**
+        Callback on global layout change event
+    **/
+    public static function layout_change():Void {
+        var instances = get_druid_instances();
+
+        for (i in instances)
+            Msg.post(i.url, Const.SPECIFIC_UI_MESSAGES.LAYOUT_CHANGE);
+    }
+
+    /**
+        Callback on global language change event
+    **/
+    public static function language_change():Void {
+        var instances = get_druid_instances();
+
+        for (i in instances)
+            Msg.post(i.url, Const.SPECIFIC_UI_MESSAGES.LANGUAGE_CHANGE);
+    }
 }
