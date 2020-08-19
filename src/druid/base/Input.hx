@@ -13,7 +13,6 @@ import druid.types.NodeOrString;
     Druid input text component
     Carry on user text input
 **/
-@:access(druid.base.Button.node)
 class Input<T:{}> extends Component<T> {
     private var keyboard_type:GuiKeyboardType;
     private var selected:Bool = false;
@@ -116,6 +115,13 @@ class Input<T:{}> extends Component<T> {
         set("on_select", (_, _) -> {});
         set("on_unselect", (_, _) -> {});
         set("on_input_wrong", (_, _) -> {});
+        set("Button", [
+            "LONGTAP_TIME" => .4,
+            "AUTOHOLD_TRIGGER" => .8,
+            "DOUBLETAP_TIME" => .4,
+        ]);
+
+        button.on_style_change(style["Button"]);
 
         this.style = style;
     }
@@ -140,7 +146,7 @@ class Input<T:{}> extends Component<T> {
                             input_text = Utf8.sub(input_text, 1, max_length);
                     } else {
                         on_input_wrong.trigger([context, action_text]);
-                        invoke_style("on_input_wrong", [this, button.node]);
+                        invoke_style("on_input_wrong", [button]);
                     }
                     marked_value = "";
                 }
@@ -258,7 +264,7 @@ class Input<T:{}> extends Component<T> {
             Gui.show_keyboard(keyboard_type, false);
             on_input_select.trigger([context]);
 
-            invoke_style("on_select", [this, this.button.node]);
+            invoke_style("on_select", [button]);
         }
     }
 
@@ -273,7 +279,7 @@ class Input<T:{}> extends Component<T> {
             Gui.hide_keyboard();
             on_input_unselect.trigger([context]);
 
-            invoke_style("on_unselect", [this, this.button.node]);
+            invoke_style("on_unselect", [button]);
         }
     }
 

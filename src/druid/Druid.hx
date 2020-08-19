@@ -39,6 +39,9 @@ class Druid<T:{}> {
     **/
     public function new(context:T, ?style:DruidStyle) {
         this.context = context;
+
+        if (style == null)
+            style = default_style;
         this.style = style;
 
         url = defold.Msg.url();
@@ -287,6 +290,9 @@ class Druid<T:{}> {
         @return Druid instance
     **/
     public static function create<T:{}>(context:T, ?style:DruidStyle):Druid<T> {
+        if (default_style == null)
+            default_style = druid.styles.Default.style;
+
         var instance = new Druid(context, style);
         instances.push(instance);
         return instance;

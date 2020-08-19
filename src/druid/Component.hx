@@ -176,7 +176,7 @@ class Component<T:{}> {
     **/
     public function on_remove():Void {}
 
-    private function invoke_style(name: String, args:Array<Dynamic>):Void {
+    private function invoke_style(name:String, args:Array<Dynamic>):Void {
         args = ([this]:Array<Dynamic>).concat(args);
         if (Reflect.isFunction(style[name]))
             Reflect.callMethod(null, style[name], args);

@@ -103,6 +103,9 @@ class Button<T:{}> extends Component<T> {
         start_scale = Gui.get_scale(this.anim_node);
         start_pos = Gui.get_position(this.anim_node);
 
+        hover = new Hover(node, on_button_hover);
+        hover.on_mouse_hover.subscribe(on_button_mouse_hover);
+
         on_click = new Event(callback);
         on_repeated_click = new Event();
         on_long_click = new Event();
@@ -114,8 +117,6 @@ class Button<T:{}> extends Component<T> {
     override function init(druid:Druid<T>, context:T, ?druid_style:DruidStyle) {
         super.init(druid, context, druid_style);
 
-        hover = new Hover(node, on_button_hover);
-        hover.on_mouse_hover.subscribe(on_button_mouse_hover);
         add_child(hover);
     }
 
@@ -220,13 +221,13 @@ class Button<T:{}> extends Component<T> {
     }
 
     private function on_button_hover(_:T, hover_state:Bool):Void
-        invoke_style("on_hover", [this, anim_node, hover_state]);
+        invoke_style("on_hover", [anim_node, hover_state]);
 
     private function on_button_mouse_hover(_:T, hover_state:Bool):Void
-        invoke_style("on_mouse_hover", [this, anim_node, hover_state]);
+        invoke_style("on_mouse_hover", [anim_node, hover_state]);
 
     private function on_button_click():Void {
-        invoke_style("on_click", [this, anim_node]);
+        invoke_style("on_click", [anim_node]);
 
         click_in_row = 1;
         on_click.trigger([context]);
@@ -238,14 +239,14 @@ class Button<T:{}> extends Component<T> {
             is_repeated_started = true;
         }
 
-        invoke_style("on_click", [this, anim_node]);
+        invoke_style("on_click", [anim_node]);
 
         click_in_row += 1;
         on_repeated_click.trigger([context, click_in_row]);
     }
 
     private function on_button_long_click():Void {
-        invoke_style("on_click", [this, anim_node]);
+        invoke_style("on_click", [anim_node]);
 
         click_in_row = 1;
         var time = Socket.gettime() - last_pressed_time;
@@ -253,7 +254,7 @@ class Button<T:{}> extends Component<T> {
     }
 
     private function on_button_double_click():Void {
-        invoke_style("on_click", [this, anim_node]);
+        invoke_style("on_click", [anim_node]);
 
         click_in_row += 1;
         on_double_click.trigger([context, click_in_row]);
@@ -287,7 +288,7 @@ class Button<T:{}> extends Component<T> {
             }
             return true;
         } else {
-            invoke_style("on_click_disabled", [this, anim_node]);
+            invoke_style("on_click_disabled", [anim_node]);
             return false;
         }
     }

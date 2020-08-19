@@ -60,7 +60,7 @@ class Checkbox<T:{}> extends Component<T> {
     public function set_state(state:Bool, ?is_silent:Bool = false):Void {
         if (state != this.state) {
             this.state = state;
-            invoke_style("on_change_state", [this, node, state]);
+            invoke_style("on_change_state", [node, state]);
 
             if (!is_silent) {
                 on_change_state.trigger([context, state]);
