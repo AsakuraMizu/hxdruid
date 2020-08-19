@@ -1,9 +1,9 @@
 package druid.base;
 
-import defold.Vmath;
-import defold.types.Hash;
-import defold.support.ScriptOnInputAction;
 import defold.Gui;
+import defold.Vmath;
+import defold.support.ScriptOnInputAction;
+import defold.types.Hash;
 import defold.types.Vector3;
 import druid.types.NodeOrString;
 
@@ -31,27 +31,25 @@ class Slider<T:{}> extends Component<T> {
         Component constructor
 
         @param node Gui pin node
-        @param end_pos The end position of slider
+        @param dist Length between start and end position
         @param callback On slider change callback
     **/
-    public function new(node:NodeOrString, end_pos:Vector3, ?callback:(T, Float) -> Void) {
+    public function new(node:NodeOrString, dist:Vector3, ?callback:(T, Float) -> Void) {
         name = "Slider";
         interest = [Const.ON_INPUT_HIGH];
 
         this.node = get_node(node);
 
         target_pos = pos = start_pos = Gui.get_position(this.node);
-        this.end_pos = end_pos;
+        this.dist = dist;
 
-        dist = end_pos - start_pos;
-        if (dist.x != 0 && dist.y != 0)
-            throw "Slider for now can be only vertical or horizontal";
+        end_pos = start_pos + dist;
 
         on_change_value = new Event(callback);
     }
 
     override function on_input(action_id:Hash, action:ScriptOnInputAction):Bool {
-        if (action.pressed)
+        if (action_id != Const.ACTION_TOUCH)
             return false;
 
         if (Gui.pick_node(node, action.x, action.y) && action.pressed) {
@@ -70,15 +68,11 @@ class Slider<T:{}> extends Component<T> {
 
             if (prev_pos != target_pos) {
                 var prev_value = value;
-
-                if (dist.x > 0)
-                    value = (target_pos.x - start_pos.x) / dist.x;
-
-                if (dist.y > 0)
-                    value = (target_pos.y - start_pos.y) / dist.y;
+                
+                value = Vmath.project(target_pos - start_pos, dist);
 
                 if (steps != null) {
-                    var closest_dist:Float = 1000;
+                    var closest_dist:Float = Math.POSITIVE_INFINITY;
                     var closest:Float = null;
 
                     for (i in steps) {
@@ -122,6 +116,6 @@ class Slider<T:{}> extends Component<T> {
 
     private function set_position(value:Float):Void {
         value = Helper.clamp(value, 0, 1);
-        Gui.set_position(node, start_pos + dist * value);
+        Gui.set_position(node, Vmath.lerp(value, start_pos, end_pos));
     }
 }

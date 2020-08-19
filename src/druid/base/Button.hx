@@ -50,32 +50,32 @@ class Button<T:{}> extends Component<T> {
     public var click_in_row(default, null):Int = 0;
 
     /**
-        On release button callback (self, params, button_instance)
+        On release button callback
     **/
     public var on_click(default, null):Event<T -> Void>;
 
     /**
-        On repeated action button callback (self, params, button_instance, click_amount)
+        On repeated action button callback
     **/
     public var on_repeated_click(default, null):Event<(T, Int) -> Void>;
 
     /**
-        On long tap button callback (self, params, button_instance, time)
+        On long tap button callback
     **/
     public var on_long_click(default, null):Event<(T, Float) -> Void>;
 
     /**
-        On double tap button callback (self, params, button_instance, click_amount)
+        On double tap button callback
     **/
     public var on_double_click(default, null):Event<(T, Int) -> Void>;
 
     /**
-        On button hold before long_click callback (self, params, button_instance, time)
+        On button hold before long_click
     **/
     public var on_hold_callback(default, null):Event<(T, Float) -> Void>;
 
     /**
-        On click outside of button (self, params, button_instance)
+        On click outside of button
     **/
     public var on_click_outside(default, null):Event<T -> Void>;
 

@@ -77,7 +77,7 @@ class Helper {
 
     public inline static function step(current:Float, target:Float, step:Float):Float {
         if (current < target) {
-            return Math.min(current+ step, target);
+            return Math.min(current + step, target);
         } else {
             return Math.max(target, current - step);
         }
@@ -111,10 +111,6 @@ class Helper {
     public inline static function round(num:Float, ?numDecimalPlaces:Int = 0):Float {
         var mult = Math.pow(10, numDecimalPlaces);
         return Math.floor(num * mult + 0.5) / mult;
-    }
-
-    public inline static function lerp(a:Float, b:Float, t:Float):Float {
-        return a + (b - a) * t;
     }
 
     /**

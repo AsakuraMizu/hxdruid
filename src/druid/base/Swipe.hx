@@ -47,6 +47,8 @@ class Swipe<T:{}> extends Component<T> {
         set("SWIPE_TIME", .4);
         set("SWIPE_THRESHOLD", 50);
         set("SWIPE_TRIGGER_ON_MOVE", false);
+
+        this.style = style;
     }
 
     override function on_input(action_id:Hash, action:ScriptOnInputAction):Bool {
