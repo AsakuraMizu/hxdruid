@@ -2,9 +2,6 @@
 
 ## Features
 
-+ Based on [hxdefold](https://github.com/hxdefold/hxdefold), so we have every features of hxdefold :D
-+ Object-oriented programming
-
 ## Quick start
 
 ### Install hxdefold
@@ -12,18 +9,6 @@
 Document at [https://github.com/hxdefold/hxdefold#quick-start](https://github.com/hxdefold/hxdefold#quick-start)
 
 ### Install hxdruid
-
-+ Install this library (from this repo): `haxelib git https://github.com/phi-x/hxdruid`
-+ Add two lines to your `build.hxml`:
-```hxml
-...
--lib hxdefold
-# enable hxdruid Haxe library       <=== NEW
--lib hxdruid                        <=== NEW
-# enable full dead code elimination
-...
-```
-+ Enjoy!
 
 ## Note
 
@@ -42,20 +27,22 @@ class Hello extends DruidScript<HelloData> {
 
     override function init(self:HelloData) {
         super.init(self);
-        druid.add(new Hover("hover", hover_callback));
+        add(new Hover("hover", hover_callback));
     }
 }
 ```
 
-## Document
+## Documentation
 
-Coming soon.
+## Contribution
 
-## Contribute
-
-Issues and PRs are welcomes.
+Issues and PRs are welcomed.
 
 ## Todo List
 
 + [x] Base framework
-+ [ ] Basic components (7/17)
++ [x] Basic components (17/17)
++ [ ] Guide & Documentation
++ [ ] Test all components
++ [ ] Advanced style system
++ [ ] Examples
