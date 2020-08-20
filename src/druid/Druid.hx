@@ -194,19 +194,16 @@ class Druid<T:{}> {
     /**
         Druid on_message function
     **/
-    public function on_message<TMessage>(message_id:Message<TMessage>, message:TMessage, sender:Url):Void {
-        var match_msg:Message<Void> = cast message_id;
-        if (match_msg == Const.SPECIFIC_UI_MESSAGES.FOCUS_LOST)
-            on_focus_lost();
-        else if (match_msg == Const.SPECIFIC_UI_MESSAGES.FOCUS_GAINED)
-            on_focus_gained();
-        else if (match_msg == Const.SPECIFIC_UI_MESSAGES.LAYOUT_CHANGE)
-            on_layout_change();
-        else if (match_msg == Const.SPECIFIC_UI_MESSAGES.LANGUAGE_CHANGE)
-            on_language_change();
-        for (i in components[Const.ON_MESSAGE])
-            i.on_message(message_id, message, sender);
-    }
+    public function on_message<TMessage>(message_id:Message<TMessage>, message:TMessage, sender:Url):Void
+        switch message_id {
+            case Const.SpecificUIMessages.FOCUS_LOST: on_focus_lost();
+            case Const.SpecificUIMessages.FOCUS_GAINED: on_focus_gained();
+            case Const.SpecificUIMessages.LAYOUT_CHANGE: on_layout_change();
+            case Const.SpecificUIMessages.LANGUAGE_CHANGE: on_language_change();
+            default:
+                for (i in components[Const.ON_MESSAGE])
+                    i.on_message(message_id, message, sender);
+        };
 
     /**
         Druid update function
@@ -308,10 +305,10 @@ class Druid<T:{}> {
 
         if (event == WINDOW_EVENT_FOCUS_LOST) {
             for (i in instances)
-                Msg.post(i.url, Const.SPECIFIC_UI_MESSAGES.FOCUS_LOST);
+                Msg.post(i.url, Const.SpecificUIMessages.FOCUS_LOST);
         } else if (event == WINDOW_EVENT_FOCUS_GAINED) {
             for (i in instances)
-                Msg.post(i.url, Const.SPECIFIC_UI_MESSAGES.FOCUS_GAINED);
+                Msg.post(i.url, Const.SpecificUIMessages.FOCUS_GAINED);
         }
     }
 
@@ -322,7 +319,7 @@ class Druid<T:{}> {
         var instances = get_druid_instances();
 
         for (i in instances)
-            Msg.post(i.url, Const.SPECIFIC_UI_MESSAGES.LAYOUT_CHANGE);
+            Msg.post(i.url, Const.SpecificUIMessages.LAYOUT_CHANGE);
     }
 
     /**
@@ -332,6 +329,6 @@ class Druid<T:{}> {
         var instances = get_druid_instances();
 
         for (i in instances)
-            Msg.post(i.url, Const.SPECIFIC_UI_MESSAGES.LANGUAGE_CHANGE);
+            Msg.post(i.url, Const.SpecificUIMessages.LANGUAGE_CHANGE);
     }
 }

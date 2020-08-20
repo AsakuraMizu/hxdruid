@@ -22,30 +22,30 @@ enum abstract SWIPE(String) {
     Druid constants
 **/
 class Const {
-    public static final ACTION_TEXT = hash("text");
-    public static final ACTION_MARKED_TEXT = hash("marked_text");
+    public static var ACTION_TEXT(default, never) = hash("text");
+    public static var ACTION_MARKED_TEXT(default, never) = hash("marked_text");
 
-    public static final ACTION_BACKSPACE = hash("key_backspace");
-    public static final ACTION_ENTER = hash("key_enter");
-    public static final ACTION_BACK = hash("key_back");
-    public static final ACTION_ESC = hash("key_esc");
-    public static final ACTION_TOUCH = hash("touch");
-    public static final ACTION_SCROLL_UP = hash("scroll_up");
-    public static final ACTION_MULTITOUCH = hash("multitouch");
-    public static final ACTION_SCROLL_DOWN = hash("scroll_down");
+    public static var ACTION_BACKSPACE(default, never) = hash("key_backspace");
+    public static var ACTION_ENTER(default, never) = hash("key_enter");
+    public static var ACTION_BACK(default, never) = hash("key_back");
+    public static var ACTION_ESC(default, never) = hash("key_esc");
+    public static var ACTION_TOUCH(default, never) = hash("touch");
+    public static var ACTION_SCROLL_UP(default, never) = hash("scroll_up");
+    public static var ACTION_MULTITOUCH(default, never) = hash("multitouch");
+    public static var ACTION_SCROLL_DOWN(default, never) = hash("scroll_down");
 
     /**
         Component Interests
     **/
-    public static final ON_INPUT = new Interest("on_input");
-    public static final ON_UPDATE = new Interest("on_update");
-    public static final ON_MESSAGE = new Interest("on_message");
-    public static final ON_INPUT_HIGH = new Interest("on_input_high");
-    public static final ON_FOCUS_LOST = new Interest("on_focus_lost");
-    public static final ON_FOCUS_GAINED = new Interest("on_focus_gained");
-    public static final ON_LAYOUT_CHANGE = new Interest("on_layout_change");
-    public static final ON_LANGUAGE_CHANGE = new Interest("on_language_change");
-    public static final ALL_INTERESTS = [
+    public static var ON_INPUT(default, never) = new Interest("on_input");
+    public static var ON_UPDATE(default, never) = new Interest("on_update");
+    public static var ON_MESSAGE(default, never) = new Interest("on_message");
+    public static var ON_INPUT_HIGH(default, never) = new Interest("on_input_high");
+    public static var ON_FOCUS_LOST(default, never) = new Interest("on_focus_lost");
+    public static var ON_FOCUS_GAINED(default, never) = new Interest("on_focus_gained");
+    public static var ON_LAYOUT_CHANGE(default, never) = new Interest("on_layout_change");
+    public static var ON_LANGUAGE_CHANGE(default, never) = new Interest("on_language_change");
+    public static var ALL_INTERESTS(default, never) = [
         ON_INPUT,
         ON_UPDATE,
         ON_MESSAGE,
@@ -56,7 +56,7 @@ class Const {
         ON_LANGUAGE_CHANGE,
     ];
 
-    public static final PIVOTS = [
+    public static var PIVOTS(default, never) = [
         PIVOT_CENTER => Vmath.vector3(0),
         PIVOT_N => Vmath.vector3(0, 0.5, 0),
         PIVOT_NE => Vmath.vector3(0.5, 0.5, 0),
@@ -68,19 +68,12 @@ class Const {
         PIVOT_NW => Vmath.vector3(-0.5, 0.5, 0),
     ];
 
-    public static final SPECIFIC_UI_MESSAGES = {
-        FOCUS_LOST: new Message<Void>("on_focus_lost"),
-        FOCUS_GAINED: new Message<Void>("on_focus_gained"),
-        LAYOUT_CHANGE: new Message<Void>("on_layout_change"),
-        LANGUAGE_CHANGE: new Message<Void>("on_language_change"),
-    };
-
-    public static final UI_INPUT = [
+    public static var UI_INPUT(default, never) = [
         ON_INPUT_HIGH,
         ON_INPUT
     ];
 
-    public static final OS = {
+    public static var OS(default, never) = {
         ANDROID: "Android",
         IOS: "iPhone OS",
         MAC: "Darwin",
@@ -88,4 +81,11 @@ class Const {
         WINDOWS: "Windows",
         BROWSER: "HTML5",
     };
+}
+
+class SpecificUIMessages {
+    public static var FOCUS_LOST(default, never) = new Message<Void>("on_focus_lost");
+    public static var FOCUS_GAINED(default, never) = new Message<Void>("on_focus_gained");
+    public static var LAYOUT_CHANGE(default, never) = new Message<Void>("on_layout_change");
+    public static var LANGUAGE_CHANGE(default, never) = new Message<Void>("on_language_change");
 }

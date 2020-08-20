@@ -3,6 +3,7 @@ package druid;
 import defold.Gui;
 import defold.Msg;
 import defold.Vmath;
+import defold.Go.GoMessages;
 import defold.types.*;
 
 /**
@@ -207,11 +208,8 @@ class Formats {
     Druid inner module to acquire/release input
 **/
 class Input {
-    private static final ADD_FOCUS = new Message("acquire_input_focus");
-    private static final REMOVE_FOCUS = new Message("release_input_focus");
     private static final PATH_OBJ = ".";
 
-    public inline static function focus():Void Msg.post(PATH_OBJ, ADD_FOCUS);
-    public inline static function remove():Void Msg.post(PATH_OBJ, REMOVE_FOCUS);
-
+    public inline static function focus():Void Msg.post(PATH_OBJ, GoMessages.acquire_input_focus);
+    public inline static function remove():Void Msg.post(PATH_OBJ, GoMessages.release_input_focus);
 }
