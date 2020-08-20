@@ -1,6 +1,5 @@
 package druid.base;
 
-import lua.lib.luasocket.Socket;
 import defold.Gui;
 import defold.Vmath;
 import defold.support.ScriptOnInputAction;
