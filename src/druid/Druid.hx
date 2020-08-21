@@ -261,7 +261,7 @@ class Druid<T:{}> {
 
         Druid locale component will call this function to get translated text
     **/
-    public static var get_text:(String, ?Array<String>) -> String = (id, ?args) -> "[Druid]: locales not inited";
+    public static var get_text:(String, ?Map<String, String>) -> String = (id, ?args) -> "[Druid]: locales not inited";
 
     /**
         Druid sound function

@@ -10,7 +10,7 @@ import druid.types.NodeOrString;
 class LangText<T:{}> extends Component<T> {
     private var text:Text<T>;
     private var last_locale_id:String;
-    private var last_locale_args:Array<String> = [];
+    private var last_locale_args:Map<String, String> = [];
 
     /**
         On change text callback
@@ -24,7 +24,7 @@ class LangText<T:{}> extends Component<T> {
         @param locale_id Default locale id
         @param no_adjust If true, will not correct text size
     **/
-    public function new(node:NodeOrString, ?locale_id:String, ?locale_args:Array<String>, ?no_adjust:Bool = false) {
+    public function new(node:NodeOrString, ?locale_id:String, ?locale_args:Map<String, String>, ?no_adjust:Bool = false) {
         name = "LangText";
         interest = [Const.ON_LANGUAGE_CHANGE];
 
@@ -62,7 +62,7 @@ class LangText<T:{}> extends Component<T> {
 
         @param locale_id Locale id
     **/
-    public function translate(?locale_id:String, ?locale_args:Array<String>):Void {
+    public function translate(?locale_id:String, ?locale_args:Map<String, String>):Void {
         if (locale_id != null)
             last_locale_id = locale_id;
         if (locale_args != null)
